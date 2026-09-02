@@ -1,0 +1,14 @@
+/* Cargada únicamente dentro de <noscript>.
+   Si el navegador no ejecuta JavaScript, todo lo que normalmente
+   aparece con una animación de entrada se muestra de inmediato. */
+[data-reveal],
+.hero-copy h1,
+.hero-copy .lead,
+.hero-copy .cta-row,
+.mosaic-item,
+.spec-list li,
+.social-row a,
+.step::before{
+  opacity:1 !important;
+  transform:none !important;
+}

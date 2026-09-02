@@ -1,0 +1,55 @@
+# Comprobación automática en cada push y cada pull request.
+#
+# No es un despliegue: de eso se encarga Netlify. Lo que se valida aquí
+# es que el proyecto siga siendo reproducible desde cero — que las
+# dependencias instalen, que las imágenes se regeneren y que el
+# servidor arranque y responda.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    name: Instalar, construir y comprobar
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Auditar vulnerabilidades
+        run: npm audit --audit-level=high
+
+      - name: Regenerar las imágenes del sitio
+        run: npm run build
+
+      - name: Comprobar que el servidor responde
+        run: |
+          npm start &
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3000/healthz > /dev/null; then break; fi
+            sleep 1
+          done
+          curl -sf http://localhost:3000/            > /dev/null
+          curl -sf http://localhost:3000/css/styles.css > /dev/null
+          curl -sf http://localhost:3000/js/main.js  > /dev/null
+          curl -sf http://localhost:3000/img/hero-unidad.webp > /dev/null
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/ruta-inexistente)" = "404"
+          echo "El sitio responde correctamente."

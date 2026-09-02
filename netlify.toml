@@ -1,0 +1,98 @@
+#
+# Configuración de despliegue en Netlify
+# ---------------------------------------------------------------------
+# IMPORTANTE: en Netlify el sitio se sirve como archivos estáticos.
+# `server.js` NO se ejecuta en producción — es únicamente el servidor de
+# desarrollo local. Por eso todas las cabeceras de seguridad que allí
+# aplica helmet tienen que declararse aquí, o el sitio se publicaría sin
+# ninguna de ellas.
+#
+# Regla práctica: cualquier cambio en las cabeceras de `server.js` debe
+# replicarse en este archivo, y al revés.
+# ---------------------------------------------------------------------
+
+[build]
+  # Regenera las imágenes desde los originales de src/photos/.
+  command  = "npm run build"
+  publish  = "public"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# ---------------------------------------------------------------------
+# Cabeceras de seguridad (aplican a todo el sitio)
+# ---------------------------------------------------------------------
+[[headers]]
+  for = "/*"
+
+  [headers.values]
+    # Content-Security-Policy: el sitio es autónomo. No carga scripts,
+    # estilos, tipografías ni imágenes de terceros, así que todo puede
+    # cerrarse a 'self'. Cualquier inyección de recurso externo queda
+    # bloqueada por el navegador.
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; script-src-attr 'none'; upgrade-insecure-requests"
+
+    # Fuerza HTTPS durante un año, subdominios incluidos.
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+    # Impide que el navegador adivine el tipo de archivo (evita que un
+    # recurso subido como imagen se ejecute como script).
+    X-Content-Type-Options = "nosniff"
+
+    # Nadie puede embeber el sitio en un iframe (anti clickjacking).
+    # frame-ancestors de la CSP es lo que rige en navegadores modernos;
+    # esta cabecera cubre a los antiguos.
+    X-Frame-Options = "DENY"
+
+    # No se filtra a dónde iba el visitante al salir del sitio.
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # El sitio no usa cámara, micrófono ni geolocalización: se deniegan.
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+
+    # Aísla la ventana de otros orígenes.
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Resource-Policy = "same-origin"
+
+    # Netlify no lo añade, pero se deja explícito por si se migra.
+    X-DNS-Prefetch-Control = "off"
+
+# ---------------------------------------------------------------------
+# Caché
+# ---------------------------------------------------------------------
+# Imágenes y tipografías llevan nombre estable y no cambian de contenido:
+# se cachean un año. El CSS y el JS se revalidan cada semana. El HTML
+# nunca se cachea, para que un cambio de texto se vea al instante.
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# ---------------------------------------------------------------------
+# Notas
+# ---------------------------------------------------------------------
+# - Netlify sirve automáticamente public/404.html ante cualquier ruta
+#   inexistente; no hace falta declarar una regla de redirección.
+# - El certificado HTTPS y la redirección desde http:// los gestiona
+#   Netlify por su cuenta.

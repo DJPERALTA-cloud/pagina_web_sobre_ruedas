@@ -1,0 +1,30 @@
+{
+  "name": "turismo-sobre-ruedas",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio web de Turismo sobre Ruedas — renta de autobuses de turismo para viajes escolares y de grupo.",
+  "author": "Turismo sobre Ruedas",
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "build": "node scripts/process-images.js",
+    "images": "node scripts/process-images.js",
+    "fonts": "node scripts/fetch-fonts.js",
+    "audit": "npm audit --audit-level=moderate"
+  },
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.19.2",
+    "helmet": "^8.3.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.4"
+  }
+}

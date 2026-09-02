@@ -1,0 +1,11 @@
+# El repositorio guarda siempre finales de línea LF, aunque se trabaje
+# desde Windows. Evita diffs enteros por cambio de plataforma.
+* text=auto eol=lf
+
+# Binarios: nunca se normalizan.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.webp binary
+*.woff2 binary
+*.ico  binary

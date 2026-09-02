@@ -1,0 +1,29 @@
+# Dependencias
+node_modules/
+
+# Registros
+npm-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Variables de entorno (nunca deben llegar al repositorio)
+.env
+.env.*
+!.env.example
+
+# Artefactos de compilación
+src/images.manifest.json
+
+# Netlify
+.netlify/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
