@@ -10,8 +10,9 @@
  *   - La IP del visitante no viaja a Google (privacidad).
  *   - Permite cerrar la Content-Security-Policy a 'self'.
  *
- * Barlow y Barlow Condensed son de Jeremy Tribby y se publican bajo la
- * SIL Open Font License 1.1, que permite alojarlas y redistribuirlas.
+ * Bricolage Grotesque (Mathieu Triay) y Archivo (Omnibus-Type) se
+ * publican bajo la SIL Open Font License 1.1, que permite alojarlas y
+ * redistribuirlas.
  *
  * Solo se baja el subconjunto "latin": cubre el español completo
  * (incluidos á é í ó ú ñ ü ¿ ¡), la puntuación tipográfica y el signo
@@ -34,9 +35,10 @@ const UA =
   '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
 const FAMILIES = [
-  { google: 'Barlow', slug: 'barlow', weights: [400, 500, 600, 700] },
-  // Solo 600 y 700: son los unicos pesos de Condensed que usa el CSS.
-  { google: 'Barlow Condensed', slug: 'barlow-condensed', weights: [600, 700] },
+  // Titulares.
+  { google: 'Bricolage Grotesque', slug: 'bricolage', weights: [700, 800] },
+  // Texto e interfaz.
+  { google: 'Archivo', slug: 'archivo', weights: [400, 500, 600] },
 ];
 
 /** Extrae los @font-face del subconjunto latin de la hoja de Google. */

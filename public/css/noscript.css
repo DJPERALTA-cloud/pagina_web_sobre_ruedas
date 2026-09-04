@@ -1,14 +1,9 @@
 /* Cargada únicamente dentro de <noscript>.
-   Si el navegador no ejecuta JavaScript, todo lo que normalmente
-   aparece con una animación de entrada se muestra de inmediato. */
-[data-reveal],
-.hero-copy h1,
-.hero-copy .lead,
-.hero-copy .cta-row,
-.mosaic-item,
-.spec-list li,
-.social-row a,
-.step::before{
-  opacity:1 !important;
-  transform:none !important;
-}
+   Sin JavaScript no hay bucle de animación: el hero deja de ser una
+   pieza de 340vh con scroll y se muestra como una portada normal, con
+   el copy completo y el primer frame del autobús fijo. */
+[data-revelar]{opacity:1 !important;transform:none !important}
+.hero{height:auto !important}
+.hero-fijo{position:relative !important;height:auto !important;min-height:100svh;padding-block:120px 340px}
+.autobus{bottom:-6vh}
+.mensajes,.revelado,.progreso{display:none !important}

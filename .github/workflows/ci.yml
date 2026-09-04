@@ -37,7 +37,7 @@ jobs:
       - name: Auditar vulnerabilidades
         run: npm audit --audit-level=high
 
-      - name: Regenerar las imágenes del sitio
+      - name: Regenerar imágenes y frames del autobús
         run: npm run build
 
       - name: Comprobar que el servidor responde
@@ -50,6 +50,8 @@ jobs:
           curl -sf http://localhost:3000/            > /dev/null
           curl -sf http://localhost:3000/css/styles.css > /dev/null
           curl -sf http://localhost:3000/js/main.js  > /dev/null
-          curl -sf http://localhost:3000/img/hero-unidad.webp > /dev/null
+          curl -sf http://localhost:3000/img/servicio-escolar.webp > /dev/null
+          curl -sf http://localhost:3000/turn/g01.png > /dev/null
+          curl -sf http://localhost:3000/turn/g36.png > /dev/null
           test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/ruta-inexistente)" = "404"
           echo "El sitio responde correctamente."

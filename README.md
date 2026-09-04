@@ -1,8 +1,8 @@
 # Turismo sobre Ruedas — sitio web
 
-Sitio de una página para la renta de autobuses de turismo, construido sobre el
-mockup aprobado (`docs/mockup-aprobado.html`) y con las fotografías reales de
-las unidades ya integradas.
+Sitio de una página para la renta de autobuses de turismo, con dirección
+visual oscura y editorial, y un hero donde el autobús gira a medida que se
+hace scroll.
 
 - **Producción:** Netlify, como sitio estático.
 - **Desarrollo:** Node.js + Express (`server.js`), con las mismas cabeceras de
@@ -39,12 +39,22 @@ PORT=8080 npm start
 |---|---|
 | `npm start` | Levanta el servidor de desarrollo en el puerto 3000 |
 | `npm run dev` | Igual, recargando al guardar cambios |
-| `npm run build` | Regenera las imágenes del sitio desde `src/photos/` |
+| `npm run build` | Regenera fotos y frames del autobús |
+| `npm run images` | Solo las fotos, desde `src/photos/` |
+| `npm run frames` | Solo los 36 frames, desde `src/bus-frames/` |
 | `npm run fonts` | Vuelve a descargar las tipografías (solo si se cambian) |
 | `npm audit` | Revisa vulnerabilidades en las dependencias |
 
-Las imágenes y las tipografías ya están generadas y versionadas: tras
-`npm install`, `npm start` funciona sin ningún paso previo.
+Las imágenes, los frames y las tipografías ya están generados y versionados:
+tras `npm install`, `npm start` funciona sin ningún paso previo.
+
+Para revisar los frames del autobús de un vistazo:
+
+```bash
+npm run frames -- --diagnostico
+```
+
+Deja una tira de contactos con los 36 en `src/diagnostico/frames.png`.
 
 ---
 
@@ -65,14 +75,11 @@ Las imágenes y las tipografías ya están generadas y versionadas: tras
 │   └── mockup-aprobado.html   Propuesta original del cliente, sin modificar
 │
 ├── src/photos/                Fotografías originales, sin tocar
-│   ├── bus-man-blanco.png
-│   ├── bus-amarillo.png
-│   ├── bus-noche-rueda.png
-│   ├── van-crafter.png
-│   └── logo.png
+├── src/bus-frames/            36 renders del autobús, sin tocar
 │
 ├── scripts/
-│   ├── process-images.js      Recorta, trata y exporta las imágenes del sitio
+│   ├── process-images.js      Recorta, trata y exporta las fotos del sitio
+│   ├── process-bus-frames.js  Recorta y repinta los frames del autobús
 │   └── fetch-fonts.js         Descarga las tipografías para autoalojarlas
 │
 └── public/                    Lo que se publica
@@ -83,9 +90,10 @@ Las imágenes y las tipografías ya están generadas y versionadas: tras
     │   ├── styles.css         Hoja principal (15 secciones comentadas)
     │   ├── error.css          Estilos de la 404
     │   └── noscript.css       Respaldo si el navegador no ejecuta JavaScript
-    ├── js/main.js             Menú móvil, revelados, scroll-spy
-    ├── fonts/                 Barlow y Barlow Condensed (woff2, subconjunto latin)
-    ├── img/                   Imágenes generadas (no editar a mano)
+    ├── js/main.js             Bucle de animación, hero, menú, revelados
+    ├── fonts/                 Bricolage Grotesque y Archivo (woff2, latin)
+    ├── img/                   Fotos generadas (no editar a mano)
+    ├── turn/                  g01…g36.png, los frames del giro (generados)
     ├── robots.txt
     ├── sitemap.xml
     └── site.webmanifest
@@ -169,140 +177,119 @@ para que los buscadores asocien el negocio con sus cuentas.
 
 ---
 
-## Qué se respetó del mockup y qué se añadió
+## Dirección visual
 
-**Idéntico al mockup:** paleta completa, tipografías (Barlow / Barlow
-Condensed), jerarquía tipográfica, orden de las secciones, todos los textos,
-iconos y la retícula de 1080 px.
+Oscura y editorial. El fondo alterna verde profundo `#0A241D` y negro verdoso
+`#07100D`; el naranja `#E8622A` y el ámbar `#F0A03C` son **solo acento**:
+eyebrows, numeración, botones de WhatsApp y los faros del autobús. Nunca hay
+superficies naranjas grandes.
 
-**Añadido, sobre los mismos tokens:**
+Tipografías: **Bricolage Grotesque** 700/800 para titulares y **Archivo**
+400/500/600 para texto, ambas autoalojadas.
 
-- Fotografías reales en lugar de los recuadros grises.
-- Menú desplegable en móvil (el mockup ocultaba la navegación por debajo de
-  820 px sin alternativa).
-- Sombras y elevación al pasar el cursor en tarjetas, celdas y botones.
-- Entrada escalonada de los bloques al hacer scroll.
-- Acceso flotante a WhatsApp que aparece al empezar a leer.
-- Subrayado de la sección activa en la navegación.
-- Botón "Cotizar una unidad" al final de la sección Unidades.
-- Teléfono y correo convertidos en enlaces reales (`tel:`, `mailto:`, `wa.me`).
+### El fondo animado
 
-**Elementos retirados a petición del cliente:** las etiquetas pequeñas
-("Renta de autobuses" en la portada, "Servicios" y "Unidades" sobre sus
-títulos), el distintivo "Unidad monitoreada por GPS" de la foto de portada,
-el botón flotante de WhatsApp y el icono de Facebook. Se conservan las
-etiquetas de "Cómo funciona" y "Contáctanos", y los enlaces a Instagram y
-TikTok, ya apuntando a los perfiles reales.
+Las secciones oscuras llevan una malla de cinco manchas radiales que se
+recalculan en el mismo `requestAnimationFrame` del hero, más una capa de grano
+en `mix-blend-mode: overlay` que rompe el bandeado del degradado.
 
-**Dos cambios de criterio, por las fotos disponibles:**
+Cada mancha lleva una fase propia y su desplazamiento está definido de forma
+que vale exactamente cero en el instante inicial: por eso no hay salto visible
+cuando arranca el bucle.
 
-1. Las tarjetas de servicio pasaron de 16:9 a **3:2**. En 16:9 la van quedaba
-   cortada por el techo y el parachoques; en 3:2 los tres vehículos caben
-   completos.
-2. El hueco "Foto real · Interior de la unidad" de la sección Unidades se
-   resolvió con un **mosaico de las cuatro unidades**, porque no hay ninguna
-   foto de interior. Si consigues una, se puede volver al diseño original.
+**Sobre los alfas de la malla.** El boceto original proponía el naranja a `.60`
+y el ámbar a `.30`. Montado sobre las seis secciones eso convertía el sitio en
+una mancha naranja y contradecía la propia regla de "naranja solo como acento".
+Están bajados a `.12` y `.07`. Se ajustan en el bloque `BLOBS` de `main.js`.
+
+### Elementos retirados a petición del cliente
+
+Las etiquetas pequeñas de portada, el distintivo "Unidad monitoreada por GPS",
+el botón flotante de WhatsApp y el icono de Facebook. Se conservan Instagram y
+TikTok, apuntando a los perfiles reales.
 
 ---
 
-## Secciones a pantalla completa
+## El hero: el autobús que gira
 
-Cada sección ocupa una pantalla entera y centra su contenido. El sistema vive
-en la sección 08 de `styles.css` y se apoya en tres ideas:
+Es la pieza central del sitio y la más delicada.
 
-1. **`min-height`, nunca `height`.** Si el contenido supera la pantalla, la
-   sección crece en lugar de recortarse. Nada queda cortado jamás.
-2. **Unidades `svh`.** El alto de fotos, márgenes y titulares se expresa en
-   `svh` (small viewport height), así que el diseño se adapta al alto real de
-   cada equipo en vez de a una medida fija. `vh` queda como respaldo para
-   navegadores antiguos, y `svh` evita el salto que provocan las barras del
-   navegador móvil.
-3. **Fórmulas del tipo `clamp(min, Nsvh - K, max)`.** Las secciones con poco
-   contenido (los tres pasos, contacto) se expanden en monitores altos y se
-   compactan en ventanas bajas, de modo que llenan la pantalla sin llegar a
-   desbordarla.
+**Estructura.** Un contenedor de `340vh` con un hijo `position:sticky` de una
+pantalla de alto. Mientras se recorren esos 340vh el hijo permanece fijo y todo
+lo que ocurre dentro está gobernado por el progreso del scroll.
 
-Composición de las pantallas:
+**Cómo se mide el progreso.** No hay ningún listener de `scroll`. El progreso
+se calcula con `getBoundingClientRect()` del contenedor dentro del mismo
+`requestAnimationFrame` que anima la malla de fondo. Un solo bucle para todo:
+así el giro no puede desincronizarse del fondo, y funciona igual aunque el
+scroll lo haga un contenedor y no la ventana.
 
-| Pantalla | Contenido | Alto |
+De ese progreso salen tres fases:
+
+| Fase | Rango | Qué pasa |
 |---|---|---|
-| 1 | Portada + franja de confianza | `100svh − barra superior − encabezado` |
-| 2–5 | Servicios · Seguridad · Unidades · Cómo funciona | `100svh − encabezado` |
-| 6 | Contacto + pie de página | `100svh − encabezado − pie` |
+| Entrada | 0 → 0,09 | El copy se desvanece y sube; el autobús entra desde abajo |
+| Giro | 0,06 → 0,78 | 36 frames encadenados y cuatro mensajes que se relevan |
+| Salida | 0,80 → 1 | El autobús sale por la derecha y descubre el panel de cifras |
 
-Verificado sin desbordes en 1280×600, 1366×768, 1440×900 y 1920×1080.
+**El giro** cambia únicamente la `opacity` del frame que toca (0 y 1). No se
+crea ni se destruye nada en el DOM: 36 imágenes apiladas y un intercambio por
+fotograma.
 
-**Excepción, en teléfonos.** Con una sola columna, tres tarjetas apiladas con
-foto no caben físicamente en una pantalla de móvil. Ahí las secciones fluyen a
-su alto natural (que es el comportamiento correcto y esperado en móvil); la
-portada sí ocupa la pantalla completa.
+**El panel de revelado** se descubre con `clip-path: inset()` siguiendo al
+autobús, de modo que parece que el vehículo arrastra el fondo al salir.
 
-Si más adelante cambia el alto del encabezado o del pie, basta con actualizar
-los tokens `--header-h`, `--topbar-h` y `--footer-h`: toda la retícula vertical
-se recalcula sola.
-
----
-
-## Transiciones entre secciones
-
-La página alterna tres fondos (blanco, arena y verde oscuro). Para que los
-saltos de color no se noten, cada panel dibuja en su borde superior una banda
-de degradado **a caballo sobre la costura**: la mitad cae en la sección de
-arriba y la otra mitad en la propia. Como el degradado empieza exactamente en
-el color de la sección anterior y termina en el de la suya, la línea divisoria
-desaparece.
-
-```css
-.panel::before{
-  top:calc(var(--blend-h) / -2);        /* medio dentro, medio fuera */
-  height:var(--blend-h);
-  background:linear-gradient(to bottom,var(--blend-from),var(--blend-to));
-}
-```
-
-Cada sección declara sus tres variables. Los saltos de claro a oscuro usan una
-banda algo más larga (`5svh`) que los de claro a claro (`2,75svh`), porque el
-contraste es mayor. Las bandas son cortas a propósito: suavizan la costura sin
-teñir la sección.
+**Con `prefers-reduced-motion: reduce`** no hay giro ni bucle: el hero deja de
+ocupar 340vh, el autobús se queda quieto en un frame y el copy permanece
+completo en pantalla. Lo mismo sin JavaScript, vía `noscript.css`.
 
 ---
 
-## Animaciones
+## Los frames del autobús
 
-Ninguna añade elementos: todas trabajan sobre lo que ya existía.
+Los 36 renders originales (1200×1200, fondo blanco) están en `src/bus-frames/`.
+`scripts/process-bus-frames.js` los convierte en los PNG con transparencia de
+`public/turn/`.
 
-**Al cargar la portada**
+Recortarlos tiene dos trampas que se midieron sobre los propios archivos:
 
-- Titular, texto y botones entran escalonados (0,05 s · 0,15 s · 0,25 s).
-- La foto principal hace un acercamiento lento (`ken-burns`, 2,4 s).
-- Los cuatro sellos de la franja de confianza aparecen uno tras otro.
+1. **Las caras iluminadas de la carrocería son 255,255,255 exacto**, igual que
+   el fondo. Un relleno por inundación que solo mire el color se cuela por ahí
+   y muerde el techo. Se resuelve con una **barrera de contorno**: se dilatan
+   2 px todos los píxeles que no son blanco puro, y el relleno no puede
+   atravesarla.
 
-**Al hacer scroll**
+2. **La carrocería y la sombra comparten el mismo rango de gris** (205–250).
+   Se comprobó pintando una máscara sobre el render: el mismo criterio de color
+   marca a la vez el techo, el costado y la sombra del suelo. Por color no hay
+   forma de separarlas. Se separan **por geometría**: para cada columna de
+   píxeles se busca el elemento oscuro más bajo del vehículo (faldón, llanta,
+   parachoques) y todo el gris que quede por debajo es suelo.
 
-- Cada bloque se revela al entrar en pantalla, con escalonado entre hermanos.
-- Las cuatro unidades del mosaico aparecen una a una.
-- La lista de características entra línea por línea, desde la izquierda.
-- Los números 01 · 02 · 03 entran con un ligero rebote junto a su tarjeta.
-- Paralaje suave de la foto de portada, ligado al scroll con
-  `animation-timeline: view()`. Es una mejora progresiva: donde el navegador no
-  la soporta, simplemente no ocurre.
+Después se repinta cada píxel con la paleta: naranja en los faros, una rampa de
+verdes para la carrocería y casi negro en cristales y llantas. La sombra **no**
+se reconstruye en el bitmap: va en CSS, negra y difuminada, para que pueda
+escalarse y desvanecerse siguiendo al autobús durante la animación.
 
-**Al pasar el cursor**
+### Ajustar el recorte
 
-- Tarjetas y celdas se elevan; sus fotos hacen zoom.
-- El icono de los botones gira ligeramente.
-- La etiqueta de cada servicio se tiñe del color de acento.
-- Los iconos de contacto y las redes sociales se levantan.
+Los parámetros están en el bloque `AJUSTES` del script:
 
-Todo queda desactivado con `prefers-reduced-motion: reduce`, y sin JavaScript
-el contenido se muestra completo mediante `noscript.css`.
+- `margenBase` — sube el corte si la sombra muerde el parachoques.
+- `barrera` — engrosa el sellado del contorno si aparecen mordiscos.
+- `sombraMin` — qué se considera suelo por debajo de la base.
+
+La paleta del vehículo vive en el bloque `PALETA`, justo debajo.
 
 ---
 
 ## Accesibilidad y rendimiento
 
-- Enlace "Saltar al contenido", textos alternativos en todas las imágenes,
-  `aria-expanded` en el menú y foco visible en todos los elementos interactivos.
+- Enlace "Saltar al contenido", `aria-expanded` en el menú y foco visible en
+  todos los elementos interactivos. Áreas táctiles de 44 px o más.
+- De los 36 frames del giro, solo el primero lleva texto alternativo: los otros
+  35 son la misma unidad rotando y repetirlo sería ruido para un lector de
+  pantalla.
 - `prefers-reduced-motion`: desactiva animaciones y revelados.
 - Sin JavaScript la página se ve completa (`noscript.css`).
 - Imágenes con `width`/`height` declarados, carga diferida fuera de la portada

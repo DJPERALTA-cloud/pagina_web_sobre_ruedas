@@ -96,20 +96,20 @@ const PIECES = [
     alt: 'Van de pasajeros de la flota, ideal para grupos deportivos pequeños',
   },
 
-  /* Mosaico de la sección "Unidades": recortes cuadrados y cerrados */
+  /* Mosaico de la sección "Unidades": recortes verticales (3:4) */
   {
     id: 'flota-1',
     src: 'bus-man-blanco.png',
-    ratio: 1,
+    ratio: 3 / 4,
     focusY: 0.5,
     width: 420,
     grade: { saturation: 1.1, brightness: 1.03, contrast: 1.06, wash: WARM_WASH },
-    alt: 'Autobús de turismo blanco visto de frente',
+    alt: 'Autobús de turismo de la flota',
   },
   {
     id: 'flota-2',
     src: 'bus-amarillo.png',
-    ratio: 1,
+    ratio: 3 / 4,
     focusY: 0.55,
     width: 420,
     grade: { saturation: 1.12, brightness: 1.03, contrast: 1.07, wash: WARM_WASH },
@@ -118,7 +118,7 @@ const PIECES = [
   {
     id: 'flota-3',
     src: 'bus-noche-rueda.png',
-    ratio: 1,
+    ratio: 3 / 4,
     focusY: 0.5,
     width: 420,
     grade: { saturation: 1.18, brightness: 1.08, contrast: 1.05, wash: COOL_WASH },
@@ -127,7 +127,7 @@ const PIECES = [
   {
     id: 'flota-4',
     src: 'van-crafter.png',
-    ratio: 1,
+    ratio: 3 / 4,
     focusY: 0.5,
     width: 420,
     grade: { saturation: 1.08, brightness: 1.05, contrast: 1.08, wash: WARM_WASH },

@@ -1,13 +1,11 @@
 /* Estilos exclusivos de la página 404. */
-.error-page{
-  display:flex;align-items:center;text-align:left;
-  padding-top:var(--panel-pad);padding-bottom:var(--panel-pad);
-  /* Esta pagina no tiene scroll: se descuenta tambien la barra superior. */
-  /* Los 2px extra son los bordes del encabezado y del pie. */
-  min-height:calc(100vh - var(--topbar-h) - var(--header-h) - var(--footer-h) - 2px);
-  min-height:calc(100svh - var(--topbar-h) - var(--header-h) - var(--footer-h) - 2px);
+.error{
+  display:flex;align-items:center;
+  min-height:calc(100svh - var(--cabecera-h) - 120px);
+  padding-block:clamp(72px,12vh,140px);
+  position:relative;isolation:isolate;background:var(--verde);
 }
-.error-page .wrap{width:100%}   /* como hijo flex, el contenedor debe ocupar todo el ancho */
-.error-page h1{margin-top:4px;max-width:16ch}
-.error-page .lead{margin-top:16px;font-size:17.5px;color:var(--ink-soft);max-width:52ch}
-.error-page .cta-row{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+.error .caja{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.error h1{font-size:clamp(38px,4.4vw,68px);max-width:16ch}
+.error p{color:var(--texto-3);font-size:17px;max-width:52ch}
+.error .acciones{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}

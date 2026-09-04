@@ -1,40 +1,37 @@
 /* ==================================================================
    Tipografías autoalojadas
    ------------------------------------------------------------------
-   Barlow y Barlow Condensed (Jeremy Tribby), SIL Open Font License 1.1.
+   Bricolage Grotesque (Mathieu Triay) para titulares y Archivo
+   (Omnibus-Type) para texto. Ambas bajo SIL Open Font License 1.1.
    Los archivos se descargan con `npm run fonts` y viven en /fonts.
 
    Se sirven desde el propio dominio en lugar de Google Fonts para
    evitar una petición a terceros por visita, no depender de un
-   servicio externo, no exponer la IP del visitante y poder cerrar la
-   Content-Security-Policy a 'self'.
+   servicio externo, no exponer la IP del visitante y poder mantener la
+   Content-Security-Policy cerrada a 'self'.
 
-   Subconjunto latin: cubre el español completo, la puntuación
-   tipográfica y los símbolos de moneda que usa el sitio.
+   Subconjunto latin: cubre el español completo y la puntuación
+   tipográfica que usa el sitio.
    ================================================================== */
 
 @font-face{
-  font-family:'Barlow';font-style:normal;font-weight:400;font-display:swap;
-  src:url('/fonts/barlow-400.woff2') format('woff2');
+  font-family:'Bricolage Grotesque';font-style:normal;font-weight:700;font-display:swap;
+  src:url('/fonts/bricolage-700.woff2') format('woff2');
 }
 @font-face{
-  font-family:'Barlow';font-style:normal;font-weight:500;font-display:swap;
-  src:url('/fonts/barlow-500.woff2') format('woff2');
-}
-@font-face{
-  font-family:'Barlow';font-style:normal;font-weight:600;font-display:swap;
-  src:url('/fonts/barlow-600.woff2') format('woff2');
-}
-@font-face{
-  font-family:'Barlow';font-style:normal;font-weight:700;font-display:swap;
-  src:url('/fonts/barlow-700.woff2') format('woff2');
+  font-family:'Bricolage Grotesque';font-style:normal;font-weight:800;font-display:swap;
+  src:url('/fonts/bricolage-800.woff2') format('woff2');
 }
 
 @font-face{
-  font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;
-  src:url('/fonts/barlow-condensed-600.woff2') format('woff2');
+  font-family:'Archivo';font-style:normal;font-weight:400;font-display:swap;
+  src:url('/fonts/archivo-400.woff2') format('woff2');
 }
 @font-face{
-  font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;
-  src:url('/fonts/barlow-condensed-700.woff2') format('woff2');
+  font-family:'Archivo';font-style:normal;font-weight:500;font-display:swap;
+  src:url('/fonts/archivo-500.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Archivo';font-style:normal;font-weight:600;font-display:swap;
+  src:url('/fonts/archivo-600.woff2') format('woff2');
 }

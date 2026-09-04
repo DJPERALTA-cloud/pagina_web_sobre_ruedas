@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Turismo sobre Ruedas — Renta de autobuses para viajes escolares y de grupo</title>
-<meta name="description" content="Renta de autobuses de turismo para excursiones escolares, conciertos y partidos. Chofer profesional, monitoreo GPS, cámaras a bordo e internet en todas las unidades.">
-<meta name="theme-color" content="#16332B">
+<meta name="description" content="Renta de autobuses de turismo en Puebla para excursiones escolares, conciertos y partidos. Chofer profesional, monitoreo GPS, cámaras a bordo e internet en todas las unidades.">
+<meta name="theme-color" content="#07100D">
 <link rel="canonical" href="https://www.turismosobreruedas.mx/">
 
 <!-- Redes sociales -->
@@ -28,9 +28,14 @@
 <link rel="manifest" href="/site.webmanifest">
 
 <!-- Tipografías autoalojadas: sin peticiones a terceros -->
-<link rel="preload" href="/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/fonts.css">
+
+<!-- Primeros frames del giro: evitan el parpadeo al arrancar -->
+<link rel="preload" href="/turn/g01.png" as="image">
+<link rel="preload" href="/turn/g02.png" as="image">
+<link rel="preload" href="/turn/g03.png" as="image">
 
 <link rel="stylesheet" href="/css/styles.css">
 <noscript><link rel="stylesheet" href="/css/noscript.css"></noscript>
@@ -39,160 +44,179 @@
 <body>
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-<!-- ================================================================
-     BARRA SUPERIOR
-     DATOS DE CONTACTO · actualizar teléfono aquí y en #contacto
-     ================================================================ -->
-<div class="topbar">
-  <div class="wrap">
-    <span>Tel.&nbsp;/&nbsp;WhatsApp: <a href="tel:+522220000000"><b>222&nbsp;000&nbsp;0000</b></a></span>
-    <span class="hours">Atención: lunes a sábado, 9:00–19:00</span>
-  </div>
-</div>
+<!-- Progreso de lectura de toda la página -->
+<div class="progreso" aria-hidden="true"><i data-progreso></i></div>
 
 <!-- ================================================================
      ENCABEZADO
+     DATOS DE CONTACTO · el teléfono se repite en #contacto y en el JSON-LD
      ================================================================ -->
-<header class="site" id="inicio">
-  <div class="wrap">
-    <a class="brand" href="#inicio" aria-label="Turismo sobre Ruedas, inicio">
-      <img class="brand-logo" src="/img/logo.png" alt="" width="46" height="46" decoding="async">
-      <span class="brand-name">Turismo sobre Ruedas<small>Renta de autobuses</small></span>
+<header class="cabecera" id="inicio">
+  <div class="cabecera-caja">
+    <a class="marca" href="#inicio" aria-label="Turismo sobre Ruedas, inicio">
+      <img class="marca-logo" src="/img/logo.png" alt="" width="44" height="44" decoding="async">
+      <span class="marca-nombre">Turismo sobre Ruedas<small>Renta de autobuses · Puebla</small></span>
     </a>
 
-    <nav class="main" id="nav-principal" aria-label="Navegación principal">
+    <nav class="nav" id="nav-principal" aria-label="Navegación principal">
       <a href="#servicios">Servicios</a>
       <a href="#seguridad">Seguridad</a>
       <a href="#unidades">Unidades</a>
       <a href="#contacto">Contacto</a>
     </nav>
 
-    <div class="header-actions">
-      <a class="btn btn-primary btn-cotizar" href="#contacto">Cotizar viaje</a>
-      <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-movil">
-        <span class="nav-toggle-bars" aria-hidden="true"></span>
+    <div class="cabecera-acciones">
+      <a class="btn btn-acento btn-cotizar" href="https://wa.me/522220000000?text=Hola%2C%20quiero%20cotizar%20un%20viaje" target="_blank" rel="noopener noreferrer">Cotizar viaje</a>
+      <button class="nav-boton" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-movil">
+        <span class="nav-barras" aria-hidden="true"></span>
       </button>
     </div>
   </div>
 
-  <!-- Menú desplegable para pantallas pequeñas -->
-  <nav class="mobile-nav" id="nav-movil" aria-label="Navegación móvil" hidden>
-    <div class="wrap">
-      <a href="#servicios">Servicios</a>
-      <a href="#seguridad">Seguridad</a>
-      <a href="#unidades">Unidades</a>
-      <a href="#contacto">Contacto</a>
-      <a class="btn btn-primary" href="#contacto">Cotizar viaje</a>
-    </div>
+  <nav class="nav-movil" id="nav-movil" aria-label="Navegación móvil" hidden>
+    <a href="#servicios">Servicios</a>
+    <a href="#seguridad">Seguridad</a>
+    <a href="#unidades">Unidades</a>
+    <a href="#contacto">Contacto</a>
+    <a class="btn btn-acento" href="https://wa.me/522220000000?text=Hola%2C%20quiero%20cotizar%20un%20viaje" target="_blank" rel="noopener noreferrer">Cotizar viaje</a>
   </nav>
 </header>
 
 <main id="contenido">
 
 <!-- ================================================================
-     PANTALLA 1 · PORTADA + FRANJA DE CONFIANZA
+     HERO · el autobús gira con el scroll
      ================================================================ -->
-<div class="screen screen--hero">
+<div class="hero" data-hero>
+  <div class="hero-fijo">
 
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-copy" data-reveal>
+    <div class="malla" data-malla aria-hidden="true"></div>
+    <div class="grano" aria-hidden="true"></div>
+    <div class="rejilla" aria-hidden="true"></div>
+    <div class="horizonte" aria-hidden="true"></div>
+
+    <!-- Copy de entrada -->
+    <div class="hero-copy" data-hero-copy>
       <h1>Viajes escolares y de grupo, seguros de principio a fin</h1>
-      <p class="lead">Autobuses de turismo para excursiones escolares, conciertos y partidos de futbol. Todas nuestras unidades cuentan con chofer profesional, monitoreo GPS, cámaras a bordo e internet.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#contacto">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v2a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3.1 4.2 2 2 0 0 1 5.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8.1 9.6a16 16 0 0 0 6.3 6.3l1.1-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg>
-          Cotizar
-        </a>
-        <a class="btn btn-outline" href="#unidades">Ver unidades</a>
+      <p class="hero-lead">Autobuses de turismo para excursiones escolares, conciertos y partidos de futbol. Chofer profesional, monitoreo GPS, cámaras a bordo e internet en todas las unidades.</p>
+      <p class="hero-pista"><span aria-hidden="true"></span> Desliza y arrancamos</p>
+    </div>
+
+    <!-- Mensajes que se relevan durante el giro -->
+    <div class="mensajes" data-mensajes aria-hidden="true">
+      <article class="mensaje" data-mensaje>
+        <p class="mensaje-eyebrow">01 · Seguridad</p>
+        <h2>GPS y cámaras en cada unidad</h2>
+        <p class="mensaje-apoyo">La escuela sigue la ubicación del autobús durante todo el trayecto.</p>
+      </article>
+      <article class="mensaje" data-mensaje>
+        <p class="mensaje-eyebrow">02 · Comodidad</p>
+        <h2>La comodidad es nuestro estándar</h2>
+        <p class="mensaje-apoyo">Asientos reclinables, aire acondicionado e internet a bordo.</p>
+      </article>
+      <article class="mensaje" data-mensaje>
+        <p class="mensaje-eyebrow">03 · Operación</p>
+        <h2>Chofer profesional y mantenimiento</h2>
+        <p class="mensaje-apoyo">Revisión completa de la unidad antes de cada salida.</p>
+      </article>
+      <article class="mensaje" data-mensaje>
+        <p class="mensaje-eyebrow">04 · Atención</p>
+        <h2>Atención personalizada</h2>
+        <p class="mensaje-apoyo">Te acompañamos desde la cotización hasta el regreso.</p>
+      </article>
+    </div>
+
+    <!-- El autobús: 36 frames apilados -->
+    <div class="autobus" data-autobus>
+      <div class="autobus-sombra" aria-hidden="true"></div>
+      <div class="autobus-frames" data-frames data-total="36"></div>
+    </div>
+
+    <!-- Panel que el autobús descubre al salir -->
+    <section class="revelado" data-revelado aria-label="Turismo sobre Ruedas en cifras">
+      <div class="revelado-caja">
+        <h2>Cada salida, con la unidad monitoreada de principio a fin</h2>
+        <dl class="cifras">
+          <div><dt>100%</dt><dd>unidades con GPS y cámaras</dd></div>
+          <div><dt>40–50</dt><dd>pasajeros por autobús</dd></div>
+          <div><dt>Mismo día</dt><dd>de respuesta a tu cotización</dd></div>
+          <div><dt>Sin cargos</dt><dd>ocultos en el presupuesto</dd></div>
+        </dl>
       </div>
-    </div>
+    </section>
 
-    <figure class="hero-media" data-reveal data-reveal-delay="1">
-      <picture>
-        <source type="image/webp" srcset="/img/hero-unidad.webp">
-        <img src="/img/hero-unidad.jpg" width="720" height="540"
-             alt="Autobús de turismo de Turismo sobre Ruedas listo para salir de viaje"
-             fetchpriority="high" decoding="async">
-      </picture>
-    </figure>
-  </div>
-</section>
-
-<!-- ================================================================
-     FRANJA DE CONFIANZA
-     ================================================================ -->
-<div class="trust">
-  <div class="wrap">
-    <div class="item" data-reveal data-reveal-delay="1">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-      Monitoreo GPS en tiempo real
-    </div>
-    <div class="item" data-reveal data-reveal-delay="2">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="13" height="10" rx="1.5"/><path d="M16 10.5 21 8v8l-5-2.5"/></svg>
-      Cámaras dentro de la unidad
-    </div>
-    <div class="item" data-reveal data-reveal-delay="3">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12a10 10 0 0 1 14 0M8 15a6 6 0 0 1 8 0"/><circle cx="12" cy="18.4" r="1.3" fill="currentColor" stroke="none"/></svg>
-      Internet a bordo
-    </div>
-    <div class="item" data-reveal data-reveal-delay="4">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
-      Choferes profesionales
-    </div>
   </div>
 </div>
 
-</div><!-- /.screen--hero -->
+<!-- ================================================================
+     CINTA
+     ================================================================ -->
+<div class="cinta" aria-hidden="true">
+  <div class="cinta-pista">
+    <span class="cinta-grupo">
+      Viajes escolares <i>◆</i> Conciertos y eventos <i>◆</i> Partidos y torneos <i>◆</i>
+      Monitoreo GPS <i>◆</i> Cámaras a bordo <i>◆</i> Internet en el trayecto <i>◆</i>
+      Chofer profesional <i>◆</i> Puebla y todo México <i>◆</i>
+    </span>
+    <span class="cinta-grupo">
+      Viajes escolares <i>◆</i> Conciertos y eventos <i>◆</i> Partidos y torneos <i>◆</i>
+      Monitoreo GPS <i>◆</i> Cámaras a bordo <i>◆</i> Internet en el trayecto <i>◆</i>
+      Chofer profesional <i>◆</i> Puebla y todo México <i>◆</i>
+    </span>
+  </div>
+</div>
 
 <!-- ================================================================
      SERVICIOS
      ================================================================ -->
-<section class="panel" id="servicios">
-  <div class="wrap">
-    <div class="sec-head" data-reveal>
+<section class="seccion seccion-negra" id="servicios">
+  <div class="malla" data-malla aria-hidden="true"></div>
+  <div class="grano" aria-hidden="true"></div>
+  <div class="caja">
+    <header class="seccion-cabeza" data-revelar>
+      <p class="eyebrow">Servicios</p>
       <h2>Un autobús para cada tipo de viaje</h2>
-      <p>Nos especializamos en viajes escolares, pero llevamos a tu grupo a donde lo necesite: siempre con chofer y con la unidad monitoreada.</p>
-    </div>
+      <p class="seccion-lead">Nos especializamos en viajes escolares, pero llevamos a tu grupo a donde lo necesite: siempre con chofer y con la unidad monitoreada.</p>
+    </header>
 
-    <div class="cards">
-      <article class="card" data-reveal>
-        <div class="card-media">
-          <picture>
-            <source type="image/webp" srcset="/img/servicio-escolar.webp">
-            <img src="/img/servicio-escolar.jpg" width="640" height="427" loading="lazy" decoding="async"
-                 alt="Autobús de la flota preparado para una salida escolar">
-          </picture>
+    <div class="tarjetas">
+      <article class="tarjeta" data-revelar data-retraso="1">
+        <picture>
+          <source type="image/webp" srcset="/img/servicio-escolar.webp">
+          <img src="/img/servicio-escolar.jpg" width="640" height="427" loading="lazy" decoding="async"
+               alt="Autobús de la flota preparado para una salida escolar">
+        </picture>
+        <div class="tarjeta-cuerpo">
+          <span class="insignia insignia-acento">Servicio principal</span>
+          <h3>Viajes escolares</h3>
+          <p>Excursiones, visitas a museos y eventos académicos. Coordinamos horarios con la escuela y la unidad viaja monitoreada todo el trayecto.</p>
         </div>
-        <h3>Viajes escolares</h3>
-        <p>Excursiones, visitas a museos, prácticas y eventos académicos. Coordinamos horarios con la escuela y los padres pueden estar tranquilos: la unidad viaja monitoreada todo el trayecto.</p>
-        <span class="chip">Servicio principal</span>
       </article>
 
-      <article class="card" data-reveal data-reveal-delay="1">
-        <div class="card-media">
-          <picture>
-            <source type="image/webp" srcset="/img/servicio-evento.webp">
-            <img src="/img/servicio-evento.jpg" width="640" height="427" loading="lazy" decoding="async"
-                 alt="Unidad de Turismo sobre Ruedas en un traslado nocturno a un evento">
-          </picture>
+      <article class="tarjeta" data-revelar data-retraso="2">
+        <picture>
+          <source type="image/webp" srcset="/img/servicio-evento.webp">
+          <img src="/img/servicio-evento.jpg" width="640" height="427" loading="lazy" decoding="async"
+               alt="Unidad de Turismo sobre Ruedas en un traslado nocturno a un evento">
+        </picture>
+        <div class="tarjeta-cuerpo">
+          <span class="insignia insignia-clara">Viaje redondo</span>
+          <h3>Conciertos y eventos</h3>
+          <p>Traslados redondos para conciertos, festivales y eventos sociales. Tu grupo llega y regresa junto, sin preocuparse por el estacionamiento.</p>
         </div>
-        <h3>Conciertos y eventos</h3>
-        <p>Traslados redondos para conciertos, festivales y eventos sociales. Tu grupo llega y regresa junto, sin preocuparse por estacionamiento ni traslados nocturnos.</p>
-        <span class="chip">Viaje redondo</span>
       </article>
 
-      <article class="card" data-reveal data-reveal-delay="2">
-        <div class="card-media">
-          <picture>
-            <source type="image/webp" srcset="/img/servicio-deportivo.webp">
-            <img src="/img/servicio-deportivo.jpg" width="640" height="427" loading="lazy" decoding="async"
-                 alt="Van de pasajeros de la flota para grupos deportivos">
-          </picture>
+      <article class="tarjeta" data-revelar data-retraso="3">
+        <picture>
+          <source type="image/webp" srcset="/img/servicio-deportivo.webp">
+          <img src="/img/servicio-deportivo.jpg" width="640" height="427" loading="lazy" decoding="async"
+               alt="Van de pasajeros de la flota para grupos deportivos">
+        </picture>
+        <div class="tarjeta-cuerpo">
+          <span class="insignia insignia-clara">Grupos pequeños</span>
+          <h3>Partidos y deportes</h3>
+          <p>Llevamos a equipos y porras a partidos y torneos. Espacio para equipaje deportivo y salidas puntuales para llegar a tiempo.</p>
         </div>
-        <h3>Partidos y deportes</h3>
-        <p>Llevamos a equipos y porras a partidos de fútbol y torneos. Espacio para equipaje deportivo y salidas puntuales para llegar con tiempo al estadio.</p>
-        <span class="chip">Grupos y porras</span>
       </article>
     </div>
   </div>
@@ -201,89 +225,71 @@
 <!-- ================================================================
      SEGURIDAD
      ================================================================ -->
-<section class="safety panel" id="seguridad">
-  <div class="wrap">
-    <div class="sec-head" data-reveal>
+<section class="seccion seccion-verde" id="seguridad">
+  <div class="malla" data-malla aria-hidden="true"></div>
+  <div class="grano" aria-hidden="true"></div>
+  <div class="caja">
+    <header class="seccion-cabeza" data-revelar>
       <h2>La seguridad no es un extra: es el servicio</h2>
-      <p>Cada unidad sale a carretera con tecnología de monitoreo y personal capacitado.</p>
-    </div>
+      <p class="seccion-lead">Cada unidad sale a carretera con tecnología de monitoreo y personal capacitado.</p>
+    </header>
 
-    <div class="grid">
-      <div class="cell" data-reveal>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+    <div class="rejilla-4">
+      <article class="celda" data-revelar data-retraso="1">
+        <p class="celda-num">01</p>
         <h3>GPS en tiempo real</h3>
         <p>Sabemos dónde está cada unidad durante todo el recorrido, de la salida al regreso.</p>
-      </div>
-      <div class="cell" data-reveal data-reveal-delay="1">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="13" height="10" rx="1.5"/><path d="M16 10.5 21 8v8l-5-2.5"/></svg>
+      </article>
+      <article class="celda" data-revelar data-retraso="2">
+        <p class="celda-num">02</p>
         <h3>Cámaras a bordo</h3>
         <p>Cámaras al interior de la unidad para la tranquilidad de pasajeros, escuelas y familias.</p>
-      </div>
-      <div class="cell" data-reveal data-reveal-delay="2">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12a10 10 0 0 1 14 0M8 15a6 6 0 0 1 8 0"/><circle cx="12" cy="18.4" r="1.3" fill="currentColor" stroke="none"/></svg>
+      </article>
+      <article class="celda" data-revelar data-retraso="3">
+        <p class="celda-num">03</p>
         <h3>Internet en el trayecto</h3>
         <p>Conexión wifi para que el grupo viaje comunicado y entretenido durante el camino.</p>
-      </div>
-      <div class="cell" data-reveal data-reveal-delay="3">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
+      </article>
+      <article class="celda" data-revelar data-retraso="4">
+        <p class="celda-num">04</p>
         <h3>Chofer profesional</h3>
         <p>Operadores con experiencia en transporte de pasajeros y trato con grupos escolares.</p>
-      </div>
+      </article>
     </div>
 
-    <div class="note" data-reveal>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
-      <p><b>Tranquilidad para escuelas y familias:</b> durante la excursión, la escuela puede dar seguimiento a la ubicación de la unidad en tiempo real.</p>
-    </div>
+    <aside class="aviso" data-revelar>
+      <p><b>Tranquilidad para escuelas y familias:</b> durante la excursión, la escuela puede dar seguimiento a la ubicación de la unidad en tiempo real, desde la salida hasta el regreso.</p>
+    </aside>
   </div>
 </section>
 
 <!-- ================================================================
      UNIDADES
      ================================================================ -->
-<section class="fleet panel" id="unidades">
-  <div class="wrap fleet-grid">
-    <div class="fleet-mosaic" data-reveal>
-      <figure class="mosaic-item">
-        <picture>
-          <source type="image/webp" srcset="/img/flota-1.webp">
-          <img src="/img/flota-1.jpg" width="420" height="420" loading="lazy" decoding="async"
-               alt="Autobús de turismo blanco de la flota">
-        </picture>
-      </figure>
-      <figure class="mosaic-item">
-        <picture>
-          <source type="image/webp" srcset="/img/flota-2.webp">
-          <img src="/img/flota-2.jpg" width="420" height="420" loading="lazy" decoding="async"
-               alt="Autobús amarillo de la flota">
-        </picture>
-      </figure>
-      <figure class="mosaic-item">
-        <picture>
-          <source type="image/webp" srcset="/img/flota-3.webp">
-          <img src="/img/flota-3.jpg" width="420" height="420" loading="lazy" decoding="async"
-               alt="Unidad de la flota en un servicio nocturno">
-        </picture>
-      </figure>
-      <figure class="mosaic-item">
-        <picture>
-          <source type="image/webp" srcset="/img/flota-4.webp">
-          <img src="/img/flota-4.jpg" width="420" height="420" loading="lazy" decoding="async"
-               alt="Van de pasajeros de la flota">
-        </picture>
-      </figure>
-    </div>
+<section class="seccion seccion-negra" id="unidades">
+  <div class="malla" data-malla aria-hidden="true"></div>
+  <div class="grano" aria-hidden="true"></div>
+  <div class="caja">
+    <div class="unidades">
+      <div class="mosaico" data-revelar>
+        <figure><picture><source type="image/webp" srcset="/img/flota-1.webp"><img src="/img/flota-1.jpg" width="420" height="560" loading="lazy" decoding="async" alt="Autobús de turismo blanco de la flota"></picture></figure>
+        <figure><picture><source type="image/webp" srcset="/img/flota-2.webp"><img src="/img/flota-2.jpg" width="420" height="560" loading="lazy" decoding="async" alt="Autobús amarillo de la flota"></picture></figure>
+        <figure><picture><source type="image/webp" srcset="/img/flota-3.webp"><img src="/img/flota-3.jpg" width="420" height="560" loading="lazy" decoding="async" alt="Unidad de la flota en un servicio nocturno"></picture></figure>
+        <figure><picture><source type="image/webp" srcset="/img/flota-4.webp"><img src="/img/flota-4.jpg" width="420" height="560" loading="lazy" decoding="async" alt="Van de pasajeros de la flota"></picture></figure>
+      </div>
 
-    <div data-reveal data-reveal-delay="1">
-      <h2>Autobuses de turismo cómodos y equipados</h2>
-      <ul class="spec-list">
-        <li><span><b>Capacidad</b> para grupos de 40 a 50 pasajeros</span></li>
-        <li><span><b>Asientos reclinables</b> con cinturón de seguridad</span></li>
-        <li><span><b>Aire acondicionado</b> en toda la cabina</span></li>
-        <li><span><b>Cámaras, GPS e internet</b> en todas las unidades</span></li>
-        <li><span><b>Mantenimiento</b> y revisión antes de cada salida</span></li>
-      </ul>
-      <a class="btn btn-primary fleet-cta" href="#contacto">Cotizar una unidad</a>
+      <div class="unidades-texto" data-revelar data-retraso="1">
+        <p class="eyebrow">Unidades</p>
+        <h2>Autobuses de turismo cómodos y equipados</h2>
+        <ul class="lista">
+          <li><span>Capacidad para grupos de 40 a 50 pasajeros</span></li>
+          <li><span>Asientos reclinables con cinturón de seguridad</span></li>
+          <li><span>Aire acondicionado en toda la cabina</span></li>
+          <li><span>Cámaras, GPS e internet en todas las unidades</span></li>
+          <li><span>Mantenimiento y revisión antes de cada salida</span></li>
+        </ul>
+        <a class="btn btn-acento" href="https://wa.me/522220000000?text=Hola%2C%20quiero%20cotizar%20una%20unidad" target="_blank" rel="noopener noreferrer">Cotizar una unidad</a>
+      </div>
     </div>
   </div>
 </section>
@@ -291,25 +297,40 @@
 <!-- ================================================================
      CÓMO FUNCIONA
      ================================================================ -->
-<section class="panel" id="cotizar">
-  <div class="wrap">
-    <div class="sec-head" data-reveal>
-      <p class="eyebrow">Cómo funciona</p>
-      <h2>Cotiza tu viaje en tres pasos</h2>
-    </div>
-    <div class="steps">
-      <div class="step" data-reveal>
-        <h3>Cuéntanos tu viaje</h3>
-        <p>Fecha, destino, punto de salida y número de pasajeros. Por WhatsApp o por teléfono.</p>
-      </div>
-      <div class="step" data-reveal data-reveal-delay="1">
-        <h3>Recibe tu cotización</h3>
-        <p>Te respondemos el mismo día con el costo del servicio, sin cargos ocultos y sin compromiso.</p>
-      </div>
-      <div class="step" data-reveal data-reveal-delay="2">
-        <h3>Confirma y viaja</h3>
-        <p>Aparta tu fecha y nosotros nos encargamos del resto: unidad, chofer y monitoreo del viaje.</p>
-      </div>
+<section class="seccion seccion-negra" id="cotizar">
+  <div class="malla" data-malla aria-hidden="true"></div>
+  <div class="grano" aria-hidden="true"></div>
+  <div class="caja">
+    <div class="pasos-reticula">
+      <header class="pasos-intro" data-revelar>
+        <p class="eyebrow">Cómo funciona</p>
+        <h2>Cotiza tu viaje en tres pasos</h2>
+        <p class="seccion-lead">Sin formularios ni esperas: nos escribes, te respondemos y apartas tu fecha.</p>
+      </header>
+
+      <ol class="pasos">
+        <li class="paso" data-revelar data-retraso="1">
+          <span class="paso-num">01</span>
+          <div class="paso-texto">
+            <h3>Cuéntanos tu viaje</h3>
+            <p>Fecha, destino, punto de salida y número de pasajeros. Por WhatsApp o por teléfono.</p>
+          </div>
+        </li>
+        <li class="paso" data-revelar data-retraso="2">
+          <span class="paso-num">02</span>
+          <div class="paso-texto">
+            <h3>Recibe tu cotización</h3>
+            <p>Te respondemos con el costo del servicio, sin cargos ocultos y sin compromiso.</p>
+          </div>
+        </li>
+        <li class="paso" data-revelar data-retraso="3">
+          <span class="paso-num">03</span>
+          <div class="paso-texto">
+            <h3>Confirma y viaja</h3>
+            <p>Aparta tu fecha y nosotros nos encargamos del resto: unidad, chofer y monitoreo.</p>
+          </div>
+        </li>
+      </ol>
     </div>
   </div>
 </section>
@@ -318,34 +339,34 @@
      CONTACTO
      DATOS DE CONTACTO · teléfono, correo y redes se editan aquí
      ================================================================ -->
-<section class="contact-final panel" id="contacto">
-  <div class="wrap">
-    <div class="head" data-reveal>
+<section class="seccion seccion-verde" id="contacto">
+  <div class="malla" data-malla aria-hidden="true"></div>
+  <div class="grano" aria-hidden="true"></div>
+  <div class="caja">
+    <header class="seccion-cabeza" data-revelar>
       <p class="eyebrow">Contáctanos</p>
       <h2>Platícanos tu viaje y te cotizamos hoy mismo</h2>
-      <p>Escríbenos por el medio que prefieras: te respondemos el mismo día, sin compromiso.</p>
-    </div>
+      <p class="seccion-lead">Escríbenos por el medio que prefieras: te respondemos el mismo día, sin compromiso.</p>
+    </header>
 
-    <div class="contact-grid">
-      <div class="contact-cell" data-reveal>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v2a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3.1 4.2 2 2 0 0 1 5.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8.1 9.6a16 16 0 0 0 6.3 6.3l1.1-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg>
-        <h3>Teléfono y WhatsApp</h3>
-        <p><a href="tel:+522220000000">222 000 0000</a></p>
-        <small>Lunes a sábado, 9:00–19:00</small>
-      </div>
+    <div class="contacto">
+      <a class="contacto-principal" data-revelar data-retraso="1"
+         href="https://wa.me/522220000000?text=Hola%2C%20quiero%20cotizar%20un%20viaje" target="_blank" rel="noopener noreferrer">
+        <span class="contacto-etiqueta">Teléfono y WhatsApp</span>
+        <span class="contacto-tel">222 000 0000</span>
+        <span class="contacto-nota">Lunes a sábado, 9:00–19:00</span>
+      </a>
 
-      <div class="contact-cell" data-reveal data-reveal-delay="1">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-        <h3>Correo</h3>
+      <div class="contacto-tarjeta" data-revelar data-retraso="2">
+        <span class="contacto-etiqueta">Correo</span>
         <p><a href="mailto:contacto@turismosobreruedas.mx">contacto@turismosobreruedas.mx</a></p>
-        <small>Cotizaciones y facturación</small>
+        <span class="contacto-nota">Cotizaciones y facturación</span>
       </div>
 
-      <div class="contact-cell" data-reveal data-reveal-delay="2">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-        <h3>Redes sociales</h3>
+      <div class="contacto-tarjeta" data-revelar data-retraso="3">
+        <span class="contacto-etiqueta">Redes sociales</span>
         <p>Síguenos para ver fotos de los viajes y avisos de fechas.</p>
-        <div class="social-row">
+        <div class="redes">
           <a href="https://www.instagram.com/turismosobreruedas2" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Turismo sobre Ruedas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a>
           <a href="https://www.tiktok.com/@turismo.sobre.rue8" target="_blank" rel="noopener noreferrer" aria-label="TikTok de Turismo sobre Ruedas"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.3 1.8 1.5 3.2 3.4 3.5v3c-1.3 0-2.5-.4-3.4-1v6.2c0 3.4-2.4 5.8-5.6 5.8A5.5 5.5 0 0 1 5.5 15c0-3.1 2.4-5.5 5.5-5.5.3 0 .7 0 1 .1v3.1a2.5 2.5 0 0 0-1-.2 2.5 2.5 0 1 0 2.5 2.5V3z"/></svg></a>
         </div>
@@ -356,15 +377,15 @@
 
 </main>
 
-<footer>
-  <div class="wrap">
-    <span>© <span id="anio">2026</span> Turismo sobre Ruedas. Todos los derechos reservados.</span>
+<footer class="pie">
+  <div class="caja">
+    <span>© <span id="anio">2026</span> Turismo sobre Ruedas</span>
+    <span>Renta de autobuses · Puebla</span>
   </div>
 </footer>
 
 <script src="/js/main.js" defer></script>
 
-<!-- Datos estructurados para buscadores -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -376,6 +397,7 @@
   "email": "contacto@turismosobreruedas.mx",
   "url": "https://www.turismosobreruedas.mx/",
   "areaServed": "México",
+  "address": { "@type": "PostalAddress", "addressLocality": "Puebla", "addressCountry": "MX" },
   "openingHours": "Mo-Sa 09:00-19:00",
   "sameAs": [
     "https://www.instagram.com/turismosobreruedas2",

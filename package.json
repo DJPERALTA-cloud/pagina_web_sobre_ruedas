@@ -13,10 +13,11 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "build": "node scripts/process-images.js",
+    "build": "node scripts/process-images.js && node scripts/process-bus-frames.js",
     "images": "node scripts/process-images.js",
     "fonts": "node scripts/fetch-fonts.js",
-    "audit": "npm audit --audit-level=moderate"
+    "audit": "npm audit --audit-level=moderate",
+    "frames": "node scripts/process-bus-frames.js"
   },
   "dependencies": {
     "compression": "^1.7.4",
